@@ -51,7 +51,8 @@ public class EstudianteController {
             new Estudiante(9,  "Sofía Díaz",        "Ingeniería Civil",        4.6),
             new Estudiante(10, "Juliana Morales",   "Medicina",                4.8),
             new Estudiante(11, "Ana Milena Ruiz",   "Derecho",                 4.0),
-            new Estudiante(12, "Carlos Andrés Paz", "Administración",          3.6)
+            new Estudiante(12, "Carlos Andrés Paz", "Administración",          3.6),
+            new Estudiante(13, "Andrés Anillo",   "Ingeniería de Sistemas",                 5.0)
         };
     }
 
