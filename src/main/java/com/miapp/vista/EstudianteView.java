@@ -25,6 +25,7 @@ public class EstudianteView extends JFrame {
     private JTable                 tblResultados;
     private DefaultTableModel      modeloTabla;
     private JLabel                 lblEstado;
+    private JButton                btnAgregar;
 
     // ── Controlador ───────────────────────────────────────────────────────────
     private EstudianteController controlador;
@@ -59,6 +60,24 @@ public class EstudianteView extends JFrame {
         panelBusqueda.add(lblNombre);
         panelBusqueda.add(txtNombre);
         panelBusqueda.add(btnBuscar);
+        
+        
+        // Registrar nuevo estudiante
+        
+     JPanel panelAgregar = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        panelAgregar.setBorder(BorderFactory.createTitledBorder("Agregar estudiante"));
+        
+        JLabel lblAgregar = new JLabel("Nombre:");
+        txtNombre = new JTextField(25);
+        btnAgregar = new JButton("Agregar");
+        btnAgregar.setBackground(new Color(59, 139, 212));
+        btnAgregar.setForeground(Color.WHITE);
+        btnAgregar.setFocusPainted(false);
+
+        panelAgregar.add(lblAgregar);
+        panelAgregar.add(txtNombre);
+        panelAgregar.add(btnAgregar);
+        
 
         // Panel central — tabla de resultados
         String[] columnas = {"ID", "Nombre", "Carrera", "Promedio"};
