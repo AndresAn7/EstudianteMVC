@@ -26,7 +26,9 @@ public class EstudianteView extends JFrame {
     private DefaultTableModel      modeloTabla;
     private JLabel                 lblEstado;
     private JButton                btnAgregar;
-
+    private JTextField             txtNombreAgregar;
+    private JTextField             txtCarreraAgregar;
+    private JTextField             txtPromedioAgregar;
     // ── Controlador ───────────────────────────────────────────────────────────
     private EstudianteController controlador;
 
@@ -42,11 +44,11 @@ public class EstudianteView extends JFrame {
     private void initComponentes() {
         setTitle("Búsqueda de Estudiantes — MVC NetBeans");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(700, 450);
+        setSize(740, 520);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(10, 10));
-
-        // Panel superior — barra de búsqueda
+        
+// Panel superior — barra de búsqueda
         JPanel panelBusqueda = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
         panelBusqueda.setBorder(BorderFactory.createTitledBorder("Buscar estudiante"));
 
@@ -64,19 +66,37 @@ public class EstudianteView extends JFrame {
         
         // Registrar nuevo estudiante
         
-     JPanel panelAgregar = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        JPanel panelAgregar = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
         panelAgregar.setBorder(BorderFactory.createTitledBorder("Agregar estudiante"));
-        
-        JLabel lblAgregar = new JLabel("Nombre:");
-        txtNombre = new JTextField(25);
+
+        JLabel lblNombreAg = new JLabel("Nombre:");
+        txtNombreAgregar = new JTextField(15);
+
+        JLabel lblCarreraAg = new JLabel("Carrera:");
+        txtCarreraAgregar = new JTextField(15);
+
+        JLabel lblPromedioAg = new JLabel("Promedio:");
+        txtPromedioAgregar = new JTextField(5);
         btnAgregar = new JButton("Agregar");
-        btnAgregar.setBackground(new Color(59, 139, 212));
+        btnAgregar.setBackground(new Color(0, 128, 0));
         btnAgregar.setForeground(Color.WHITE);
         btnAgregar.setFocusPainted(false);
+   
+        
 
-        panelAgregar.add(lblAgregar);
-        panelAgregar.add(txtNombre);
+        panelAgregar.add(lblNombreAg);
+        panelAgregar.add(txtNombreAgregar);
+        panelAgregar.add(lblCarreraAg);
+        panelAgregar.add(txtCarreraAgregar);
+        panelAgregar.add(lblPromedioAg);
+        panelAgregar.add(txtPromedioAgregar);
         panelAgregar.add(btnAgregar);
+        
+        JPanel panelSuperior = new JPanel(new GridLayout(2,1));
+        panelSuperior.add(panelBusqueda);
+        panelSuperior.add(panelAgregar);
+
+       
         
 
         // Panel central — tabla de resultados
@@ -98,7 +118,7 @@ public class EstudianteView extends JFrame {
         lblEstado.setBorder(BorderFactory.createEmptyBorder(4, 10, 4, 10));
         lblEstado.setForeground(Color.GRAY);
 
-        add(panelBusqueda, BorderLayout.NORTH);
+        add(panelSuperior, BorderLayout.NORTH);
         add(scroll,        BorderLayout.CENTER);
         add(lblEstado,     BorderLayout.SOUTH);
     }
