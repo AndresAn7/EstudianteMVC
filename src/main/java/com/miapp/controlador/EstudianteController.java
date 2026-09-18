@@ -5,6 +5,7 @@ import com.miapp.vista.EstudianteView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Comparator;
 
 /**
  * Controlador: gestiona la lógica entre la Vista y el Modelo.
@@ -23,6 +24,8 @@ public class EstudianteController {
 
     // ── Array de estudiantes (fuente de datos) ────────────────────────────────
     private ArrayList<Estudiante> estudiantes;
+    private List<Estudiante> ultimosResultados;
+    private boolean ordenAscendente = true;
 
     // ── Constructor ───────────────────────────────────────────────────────────
 
@@ -84,16 +87,20 @@ public class EstudianteController {
         }
 
         if (resultados.isEmpty()) {
+            ultimosResultados = resultados;
             vista.mostrarEstudiantes(new ArrayList<>()); // mostrará mensaje vacío
         } else if (resultados.size() == 1) {
             // Un solo resultado: se convierte a fila y se usa vista.mostrarEstudiante(fila)
+            ultimosResultados = resultados;
             vista.mostrarEstudiante(convertirAFila(resultados.get(0)));
         } else {
             // Varios resultados: se convierte toda la lista antes de enviarla a la Vista
+            ultimosResultados = resultados;
             vista.mostrarEstudiantes(convertirAFilas(resultados));
         }
     }
 
+    // ── Agregar Estudiante ──────────────────────────────────────────
     
     public void agregarEstudiante(String nombre, String carrera, String promedioTexto) {
     if (nombre == null || nombre.isEmpty()) {
@@ -121,6 +128,31 @@ public class EstudianteController {
     vista.mostrarConfirmacion("Estudiante agregado correctamente.");
     vista.mostrarEstudiantes(convertirAFilas(estudiantes));
 }
+    
+    // Ordenar por
+    
+    public void ordenarPor(String criterio) {
+ 
+    if (ultimosResultados == null || ultimosResultados.isEmpty()) {
+        vista.mostrarError("No hay resultados para ordenar.");
+        return;
+    }
+
+    Comparator<Estudiante> comparador;
+    if (criterio.equals("Nombre")) {
+        comparador = Comparator.comparing(Estudiante::getNombre);
+    } else {
+        comparador = Comparator.comparingDouble(Estudiante::getPromedio); }
+
+    if (!ordenAscendente) {
+        comparador = comparador.reversed();
+    }
+
+    ultimosResultados.sort(comparador);
+    ordenAscendente = !ordenAscendente;
+
+    vista.mostrarEstudiantes(convertirAFilas(ultimosResultados));
+} 
     
     
     // ── Traducción Modelo → datos para la Vista ───────────────────────────────

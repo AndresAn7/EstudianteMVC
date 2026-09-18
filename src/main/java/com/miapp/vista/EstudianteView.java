@@ -29,6 +29,9 @@ public class EstudianteView extends JFrame {
     private JTextField             txtNombreAgregar;
     private JTextField             txtCarreraAgregar;
     private JTextField             txtPromedioAgregar;
+    private JComboBox<String>      cmbCriterio;
+    private JButton                btnOrdenar;
+
     // ── Controlador ───────────────────────────────────────────────────────────
     private EstudianteController controlador;
 
@@ -90,12 +93,27 @@ public class EstudianteView extends JFrame {
         panelAgregar.add(txtPromedioAgregar);
         panelAgregar.add(btnAgregar);
         
-        JPanel panelSuperior = new JPanel(new GridLayout(2,1));
+       //  Ordenar resultados por criterio
+       
+        JPanel panelOrdenar = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        panelOrdenar.setBorder(BorderFactory.createTitledBorder("Ordenar estudiantes"));
+
+        JLabel lblCriterio = new JLabel("Ordenar por:");
+
+        String[] criterios = {"Nombre", "Promedio"};
+        cmbCriterio = new JComboBox<>(criterios);
+
+        btnOrdenar = new JButton("Ordenar");
+
+        panelOrdenar.add(lblCriterio);
+        panelOrdenar.add(cmbCriterio);
+        panelOrdenar.add(btnOrdenar);
+       
+       
+        JPanel panelSuperior = new JPanel(new GridLayout(3,1));
         panelSuperior.add(panelBusqueda);
         panelSuperior.add(panelAgregar);
-
-       
-        
+        panelSuperior.add(panelOrdenar);
 
         // Panel central — tabla de resultados
         String[] columnas = {"ID", "Nombre", "Carrera", "Promedio"};
@@ -136,6 +154,13 @@ public class EstudianteView extends JFrame {
         String carrera = txtCarreraAgregar.getText().trim();
         String promedioTexto = txtPromedioAgregar.getText().trim();
         controlador.agregarEstudiante(nombre, carrera, promedioTexto);
+    }
+});
+        
+        btnOrdenar.addActionListener((ActionEvent e) -> {
+    if (controlador != null) {
+        String criterio = (String) cmbCriterio.getSelectedItem();
+        controlador.ordenarPor(criterio);
     }
 });
 
