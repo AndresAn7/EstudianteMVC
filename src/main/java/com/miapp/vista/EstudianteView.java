@@ -31,7 +31,7 @@ public class EstudianteView extends JFrame {
     private JTextField             txtPromedioAgregar;
     private JComboBox<String>      cmbCriterio;
     private JButton                btnOrdenar;
-
+    private JButton                btnMostrarTodos;
     // ── Controlador ───────────────────────────────────────────────────────────
     private EstudianteController controlador;
 
@@ -61,12 +61,13 @@ public class EstudianteView extends JFrame {
         btnBuscar.setBackground(new Color(59, 139, 212));
         btnBuscar.setForeground(Color.WHITE);
         btnBuscar.setFocusPainted(false);
+        btnMostrarTodos = new JButton("Mostrar todos");
 
         panelBusqueda.add(lblNombre);
         panelBusqueda.add(txtNombre);
         panelBusqueda.add(btnBuscar);
-        
-        
+        panelBusqueda.add(btnMostrarTodos);
+   
         // Registrar nuevo estudiante
         
         JPanel panelAgregar = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
@@ -164,6 +165,12 @@ public class EstudianteView extends JFrame {
     }
 });
 
+        btnMostrarTodos.addActionListener((ActionEvent e) -> {
+    if (controlador != null) {
+        controlador.mostrarTodos();
+    }
+});
+        
         // También buscar al presionar Enter en el campo de texto
         txtNombre.addActionListener((ActionEvent e) -> btnBuscar.doClick());
     }

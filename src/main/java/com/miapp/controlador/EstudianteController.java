@@ -154,6 +154,14 @@ public class EstudianteController {
     vista.mostrarEstudiantes(convertirAFilas(ultimosResultados));
 } 
     
+    // Mostrar todos
+    
+        public void mostrarTodos() {
+            
+            ultimosResultados = estudiantes;
+            vista.mostrarEstudiantes(convertirAFilas(estudiantes));
+     
+        } 
     
     // ── Traducción Modelo → datos para la Vista ───────────────────────────────
     // Estos métodos son el "puente" que evita que la Vista dependa de Estudiante.
