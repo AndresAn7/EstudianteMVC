@@ -22,7 +22,7 @@ public class EstudianteController {
     private EstudianteView vista;
 
     // ── Array de estudiantes (fuente de datos) ────────────────────────────────
-    private Estudiante[] estudiantes;
+    private ArrayList<Estudiante> estudiantes;
 
     // ── Constructor ───────────────────────────────────────────────────────────
 
@@ -39,7 +39,7 @@ public class EstudianteController {
      * En un proyecto real este array vendría de una base de datos o servicio.
      */
     private void cargarDatos() {
-        estudiantes = new Estudiante[] {
+        estudiantes = new ArrayList<>(List.of(
             new Estudiante(1,  "Ana García",        "Ingeniería de Sistemas",  4.5),
             new Estudiante(2,  "Carlos López",      "Ingeniería Civil",        3.8),
             new Estudiante(3,  "María Rodríguez",   "Medicina",                4.9),
@@ -52,8 +52,9 @@ public class EstudianteController {
             new Estudiante(10, "Juliana Morales",   "Medicina",                4.8),
             new Estudiante(11, "Ana Milena Ruiz",   "Derecho",                 4.0),
             new Estudiante(12, "Carlos Andrés Paz", "Administración",          3.6),
-            new Estudiante(13, "Andrés Anillo",   "Ingeniería de Sistemas",                 5.0)
-        };
+            new Estudiante(13, "Andrés Anillo",   "Ingeniería de Sistemas",    5.0)
+        ));
+           
     }
 
     // ── Lógica de búsqueda ────────────────────────────────────────────────────
@@ -93,6 +94,35 @@ public class EstudianteController {
         }
     }
 
+    
+    public void agregarEstudiante(String nombre, String carrera, String promedioTexto) {
+    if (nombre == null || nombre.isEmpty()) {
+        vista.mostrarError("El nombre no puede estar vacío.");
+        return;
+    }
+   
+    double promedio;
+    try {
+        promedio = Double.parseDouble(promedioTexto);
+    } catch (NumberFormatException ex) {
+        vista.mostrarError("El promedio debe ser un número.");
+        return;
+    }
+
+    if (promedio < 0 || promedio > 5) {
+        vista.mostrarError("El promedio debe estar entre 0.0 y 5.0.");
+        return;
+    }
+
+ 
+    Estudiante nuevo = new Estudiante(estudiantes.size() + 1, nombre, carrera, promedio);
+    estudiantes.add(nuevo);
+
+    vista.mostrarConfirmacion("Estudiante agregado correctamente.");
+    vista.mostrarEstudiantes(convertirAFilas(estudiantes));
+}
+    
+    
     // ── Traducción Modelo → datos para la Vista ───────────────────────────────
     // Estos métodos son el "puente" que evita que la Vista dependa de Estudiante.
 
@@ -120,5 +150,5 @@ public class EstudianteController {
         return filas;
     }
 
-   
+  
 }

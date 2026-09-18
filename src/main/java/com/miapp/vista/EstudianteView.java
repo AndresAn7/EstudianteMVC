@@ -82,8 +82,6 @@ public class EstudianteView extends JFrame {
         btnAgregar.setForeground(Color.WHITE);
         btnAgregar.setFocusPainted(false);
    
-        
-
         panelAgregar.add(lblNombreAg);
         panelAgregar.add(txtNombreAgregar);
         panelAgregar.add(lblCarreraAg);
@@ -131,11 +129,22 @@ public class EstudianteView extends JFrame {
                 controlador.buscarEstudiante(txtNombre.getText().trim());
             }
         });
+        
+        btnAgregar.addActionListener((ActionEvent e) -> {
+    if (controlador != null) {
+        String nombre = txtNombreAgregar.getText().trim();
+        String carrera = txtCarreraAgregar.getText().trim();
+        String promedioTexto = txtPromedioAgregar.getText().trim();
+        controlador.agregarEstudiante(nombre, carrera, promedioTexto);
+    }
+});
 
         // También buscar al presionar Enter en el campo de texto
         txtNombre.addActionListener((ActionEvent e) -> btnBuscar.doClick());
     }
 
+    
+    
     // ── Métodos públicos que llama el Controlador ─────────────────────────────
     // ninguno de estos métodos recibe un Estudiante: reciben
     // Object[] / List<Object[]> ya armados, que es lo único que la Vista
@@ -174,6 +183,11 @@ public class EstudianteView extends JFrame {
         JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
         setEstado("Error: " + mensaje);
     }
+    
+        public void mostrarConfirmacion(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje, "Confirmación", JOptionPane.INFORMATION_MESSAGE);
+        setEstado(mensaje);
+        }
 
     /**
      * Devuelve el texto ingresado en el campo de nombre.
@@ -201,4 +215,5 @@ public class EstudianteView extends JFrame {
     private void setEstado(String texto) {
         lblEstado.setText(texto);
     }
+
 }
